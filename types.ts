@@ -8,7 +8,7 @@ export interface Property {
   sqm: number;
   type: string;
   image: string;
-  features?: string[];
+  features?: string[];     // <--- AÑADIDO ?
   isFeatured?: boolean;
-  description?: string; // <--- AÑADIDO ESTO
+  description?: string;    // <--- AÑADIDO ?
 }
