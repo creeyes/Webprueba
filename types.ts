@@ -10,4 +10,5 @@ export interface Property {
   image: string;
   features?: string[];
   isFeatured?: boolean;
+  description?: string; // <--- AÑADIDO ESTO
 }
