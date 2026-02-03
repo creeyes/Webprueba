@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+// ELIMINADO: import { properties } from '../data/mockData'; 
 import PropertyCard from '../components/PropertyCard';
-import { Property } from '../types';
+import { Property } from '../types'; // Asegúrate de importar la interfaz
 import { ChevronDown, Map, X, Check, Loader } from 'lucide-react';
 
 const Properties: React.FC = () => {
-  // 1. Estado para los datos y la carga
+  // 1. ESTADO PARA LOS DATOS REALES (Backend)
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -13,14 +14,14 @@ const Properties: React.FC = () => {
   const [selectedType, setSelectedType] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [selectedPrice, setSelectedPrice] = useState<string>("");
-   
+  
   const filterRef = useRef<HTMLDivElement>(null);
 
-  // 2. EFECTO DE CARGA (FETCH) DESDE RAILWAY
+  // 2. CONEXIÓN A RAILWAY (Aquí ocurre la magia)
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const agencyId = 'Qqg3dS8LsYYc0QQGEfVZ'; // Tu ID de Agencia
+        const agencyId = 'Qqg3dS8LsYYc0QQGEfVZ'; // Tu ID Real
         
         const response = await fetch(
             `https://web-production-2573f.up.railway.app/front/api/properties/?agency_id=${agencyId}`
@@ -29,7 +30,7 @@ const Properties: React.FC = () => {
         if (response.ok) {
             const data = await response.json();
             
-            // Convertimos precio de String a Number para que funcionen los filtros
+            // Convertimos precio de String a Number
             const cleanData = data.map((item: any) => ({
                 ...item,
                 price: Number(item.price), 
@@ -80,7 +81,7 @@ const Properties: React.FC = () => {
       setActiveDropdown(null);
   };
 
-  // Derive unique options from REAL data (not mock)
+  // 3. OBTENER OPCIONES DE LOS DATOS REALES
   const types = Array.from(new Set(properties.map(p => p.type))).sort();
   const locations = Array.from(new Set(properties.map(p => p.location))).sort();
   
@@ -111,7 +112,7 @@ const Properties: React.FC = () => {
 
   const hasActiveFilters = selectedType || selectedLocation || selectedPrice;
 
-  // 3. PANTALLA DE CARGA
+  // 4. PANTALLA DE CARGA
   if (loading) return (
     <div className="flex justify-center items-center h-screen bg-light">
         <Loader className="animate-spin h-10 w-10 text-primary" />
