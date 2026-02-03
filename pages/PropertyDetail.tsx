@@ -26,7 +26,14 @@ const PropertyDetail: React.FC = () => {
               <div className="relative group cursor-pointer overflow-hidden h-full">
                  <img src={property.image} alt="Main" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
-              {/* Resto de la galería... */}
+              <div className="grid grid-rows-2 gap-4 h-full">
+                  <div className="relative group cursor-pointer overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1600" alt="Interior" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                  <div className="relative group cursor-pointer overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1600" alt="Kitchen" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+              </div>
            </div>
         </div>
 
@@ -41,9 +48,9 @@ const PropertyDetail: React.FC = () => {
               </div>
            </div>
            <div className="flex flex-col items-end gap-4">
+              {/* CORREGIDO: Usamos Intl.NumberFormat para evitar errores si toLocaleString falla */}
               <p className="text-3xl font-serif font-bold text-primary">
-                  {/* Corregimos el formato de precio para asegurar que no falle */}
-                  {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(property.price)}
+                 {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(property.price)}
               </p>
               <div className="flex gap-3">
                  <button className="flex items-center gap-2 px-5 py-2.5 rounded-none border border-gray-200 hover:bg-gray-50 transition-all text-sm font-bold text-gray-600">
@@ -97,34 +104,30 @@ const PropertyDetail: React.FC = () => {
                 <section className="mb-12">
                     <h2 className="text-2xl font-serif font-bold mb-6 border-b border-gray-200 pb-4">Architectural Narrative</h2>
                     <div className="prose max-w-none text-lg leading-relaxed text-gray-600">
-                        {/* AQUÍ ESTABA EL ERROR: Usamos un fallback si description es undefined */}
-                        <p className="mb-6">{property.description || "No description available for this property."}</p>
+                        {/* CORREGIDO: Evita error si description no existe */}
+                        <p className="mb-6">{property.description || "Description unavailable."}</p>
                     </div>
                 </section>
 
                 <section className="mb-12">
                     <h2 className="text-2xl font-serif font-bold mb-6 border-b border-gray-200 pb-4">Key Features</h2>
                     <div className="grid grid-cols-2 gap-4">
-                        {/* AQUÍ ESTABA EL OTRO ERROR: Usamos ?. para evitar crash si features es undefined */}
+                        {/* CORREGIDO: Añadido ?. para evitar error si features es undefined */}
                         {property.features?.map((feature, idx) => (
                             <div key={idx} className="flex items-center gap-3 text-gray-700">
                                 <CheckCircle size={18} className="text-primary" />
                                 <span>{feature}</span>
                             </div>
                         ))}
-                        {(!property.features || property.features.length === 0) && (
-                            <p className="text-gray-400 italic">No specific features listed.</p>
-                        )}
                     </div>
                 </section>
             </div>
 
-            {/* Right Col: Sticky Agent */}
+            {/* Right Col */}
             <aside className="w-full lg:w-[380px]">
                 <div className="sticky top-28 space-y-6">
                     <div className="bg-white p-8 border border-gray-100 shadow-sm">
                        <h3 className="font-bold text-lg mb-4">Contact Agent</h3>
-                       <p className="text-gray-500 mb-4">Interested in this property? Send us a message.</p>
                        <button className="w-full bg-primary text-white font-bold py-4 hover:bg-opacity-90 transition-all">
                            Request Viewing
                        </button>
