@@ -114,7 +114,7 @@ export const team = [
 ];
 
 // ==========================================
-// 3. BLOG POSTS (Para Journal.tsx) - ¡AQUÍ ESTÁ LO QUE FALTABA!
+// 3. BLOG POSTS (Para Journal.tsx) - ¡IMPORTANTE COPIAR ESTO!
 // ==========================================
 export const blogPosts = [
   {
