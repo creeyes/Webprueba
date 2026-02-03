@@ -1,6 +1,8 @@
 import { Property } from '../types';
 
-// 1. LISTA DE PROPIEDADES (Arreglada con description y features)
+// ==========================================
+// 1. PROPIEDADES (Ya arregladas)
+// ==========================================
 export const properties: Property[] = [
   {
     id: '1',
@@ -84,7 +86,9 @@ export const properties: Property[] = [
   }
 ];
 
-// 2. LISTA DEL EQUIPO (¡ESTO ES LO QUE FALTABA!)
+// ==========================================
+// 2. EQUIPO (Para About.tsx)
+// ==========================================
 export const team = [
   {
     id: '1',
@@ -106,5 +110,35 @@ export const team = [
     role: 'Interior Design Consultant',
     image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400',
     bio: 'Elena helps clients visualize the potential of every property, offering expert advice on renovation.'
+  }
+];
+
+// ==========================================
+// 3. BLOG POSTS (Para Journal.tsx) - ¡ESTO FALTABA!
+// ==========================================
+export const blogPosts = [
+  {
+    id: '1',
+    title: 'The Ultimate Guide to Marbella Luxury Real Estate',
+    date: 'October 15, 2023',
+    category: 'Real Estate',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
+    excerpt: 'Discover the most exclusive neighborhoods and what makes Marbella the jewel of the Costa del Sol.'
+  },
+  {
+    id: '2',
+    title: 'Interior Design Trends for 2024',
+    date: 'November 2, 2023',
+    category: 'Design',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800',
+    excerpt: 'From sustainable materials to bold colors, explore the trends shaping luxury interiors this coming year.'
+  },
+  {
+    id: '3',
+    title: 'Living the Mediterranean Lifestyle',
+    date: 'November 20, 2023',
+    category: 'Lifestyle',
+    image: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&q=80&w=800',
+    excerpt: 'Experience the perfect balance of relaxation and sophistication that only the Mediterranean coast can offer.'
   }
 ];
