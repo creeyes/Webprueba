@@ -4,7 +4,7 @@ export const properties: Property[] = [
   {
     id: '1',
     title: 'Modern Beachfront Villa',
-    price: 4500000,
+    price: 4500000, // <--- SIN COMILLAS (Números)
     location: 'Costa Brava',
     beds: 5,
     baths: 4,
@@ -35,38 +35,5 @@ export const properties: Property[] = [
     sqm: 850,
     type: 'Estate',
     image: 'https://images.unsplash.com/photo-1600596542815-6ad4c728fdbe?auto=format&fit=crop&q=80&w=1600'
-  },
-  {
-    id: '4',
-    title: 'Contemporary Cliffside Home',
-    price: 3200000,
-    location: 'Costa Brava',
-    beds: 4,
-    baths: 4,
-    sqm: 380,
-    type: 'Villa',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1600'
-  },
-  {
-    id: '5',
-    title: 'Exclusive Port Apartment',
-    price: 1950000,
-    location: 'Barcelona',
-    beds: 2,
-    baths: 2,
-    sqm: 140,
-    type: 'Apartment',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1600'
-  },
-  {
-    id: '6',
-    title: 'Mediterranean Garden Villa',
-    price: 5500000,
-    location: 'Sitges',
-    beds: 6,
-    baths: 5,
-    sqm: 550,
-    type: 'Villa',
-    image: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&q=80&w=1600'
   }
 ];
