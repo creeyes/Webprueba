@@ -1,7 +1,7 @@
 import { Property } from '../types';
 
 // ==========================================
-// 1. PROPIEDADES (Ya arregladas)
+// 1. PROPIEDADES (Para Properties y Home)
 // ==========================================
 export const properties: Property[] = [
   {
@@ -114,7 +114,7 @@ export const team = [
 ];
 
 // ==========================================
-// 3. BLOG POSTS (Para Journal.tsx) - ¡ESTO FALTABA!
+// 3. BLOG POSTS (Para Journal.tsx) - ¡AQUÍ ESTÁ LO QUE FALTABA!
 // ==========================================
 export const blogPosts = [
   {
