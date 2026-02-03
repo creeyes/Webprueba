@@ -6,26 +6,8 @@ export interface Property {
   beds: number;
   baths: number;
   sqm: number;
+  type: string;
   image: string;
-  description: string;
-  features: string[];
-  type: 'Villa' | 'Apartment' | 'Penthouse' | 'Townhouse';
+  features?: string[];
   isFeatured?: boolean;
-}
-
-export interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  image: string;
-}
-
-export interface BlogPost {
-  id: string;
-  title: string;
-  date: string;
-  category: string;
-  excerpt: string;
-  image: string;
-  content: string[];
 }
