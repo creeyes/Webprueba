@@ -1,16 +1,53 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { properties } from '../data/mockData';
 import PropertyCard from '../components/PropertyCard';
-import { ChevronDown, Map, X, Check } from 'lucide-react';
+import { Property } from '../types';
+import { ChevronDown, Map, X, Check, Loader } from 'lucide-react';
 
 const Properties: React.FC = () => {
+  // 1. Estado para los datos y la carga
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+
   // State for filters
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [selectedPrice, setSelectedPrice] = useState<string>("");
-  
+   
   const filterRef = useRef<HTMLDivElement>(null);
+
+  // 2. EFECTO DE CARGA (FETCH) DESDE RAILWAY
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const agencyId = 'Qqg3dS8LsYYc0QQGEfVZ'; // Tu ID de Agencia
+        
+        const response = await fetch(
+            `https://web-production-2573f.up.railway.app/front/api/properties/?agency_id=${agencyId}`
+        );
+        
+        if (response.ok) {
+            const data = await response.json();
+            
+            // Convertimos precio de String a Number para que funcionen los filtros
+            const cleanData = data.map((item: any) => ({
+                ...item,
+                price: Number(item.price), 
+            }));
+            
+            setProperties(cleanData);
+        } else {
+            console.error("Error fetching properties");
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -43,9 +80,10 @@ const Properties: React.FC = () => {
       setActiveDropdown(null);
   };
 
-  // Derive unique options from data
+  // Derive unique options from REAL data (not mock)
   const types = Array.from(new Set(properties.map(p => p.type))).sort();
   const locations = Array.from(new Set(properties.map(p => p.location))).sort();
+  
   const priceRanges = [
     { label: 'Under €1M', min: 0, max: 999999 },
     { label: '€1M - €5M', min: 1000000, max: 5000000 },
@@ -72,6 +110,13 @@ const Properties: React.FC = () => {
   });
 
   const hasActiveFilters = selectedType || selectedLocation || selectedPrice;
+
+  // 3. PANTALLA DE CARGA
+  if (loading) return (
+    <div className="flex justify-center items-center h-screen bg-light">
+        <Loader className="animate-spin h-10 w-10 text-primary" />
+    </div>
+  );
 
   return (
     <div className="bg-light min-h-screen pt-24 pb-12">
@@ -195,8 +240,8 @@ const Properties: React.FC = () => {
             </div>
         )}
 
-        {/* Load More (Only show if there are many results and no filters or many filtered results) */}
-        {filteredProperties.length > 0 && (
+        {/* Load More (Only show if there are many results) */}
+        {filteredProperties.length > 9 && (
             <div className="mt-20 flex flex-col items-center">
                 <button className="flex items-center justify-center gap-3 bg-transparent border-2 border-primary text-primary px-10 py-4 font-bold text-sm uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300">
                 Load More Properties
