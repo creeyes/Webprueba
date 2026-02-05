@@ -1,4 +1,4 @@
-iimport React from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Facebook, Twitter, Linkedin, Share2 } from 'lucide-react';
 
