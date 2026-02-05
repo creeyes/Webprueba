@@ -1,5 +1,29 @@
 import React from 'react';
-import { team } from '../data/mockData';
+
+// DATOS ESTÁTICOS DEL EQUIPO (Movidos desde mockData)
+const team = [
+  {
+    id: '1',
+    name: 'Sarah Johnson',
+    role: 'Founder & CEO',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400',
+    bio: 'With over 15 years in luxury real estate, Sarah founded Elite Living to provide a bespoke service.'
+  },
+  {
+    id: '2',
+    name: 'Marc Ferran',
+    role: 'Senior Agent',
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400',
+    bio: 'Specializing in the Costa Brava region, Marc has an unparalleled knowledge of the local market.'
+  },
+  {
+    id: '3',
+    name: 'Elena Rodriguez',
+    role: 'Interior Design Consultant',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400',
+    bio: 'Elena helps clients visualize the potential of every property, offering expert advice on renovation.'
+  }
+];
 
 const About: React.FC = () => {
   return (
