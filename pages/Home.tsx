@@ -1,11 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { properties } from '../data/mockData';
+// YA NO IMPORTAMOS mockData
 import PropertyCard from '../components/PropertyCard';
 import { ArrowRight, Facebook, PlayCircle, Camera } from 'lucide-react';
+import { Property } from '../types'; // Importamos el tipo para que TS no se queje
 
 const Home: React.FC = () => {
-  const featuredProperties = properties.slice(0, 3);
+  // ESTADO: Almacenará las propiedades reales traídas del CRM
+  const [featuredProperties, setFeaturedProperties] = useState<Property[]>([]);
+
+  // FETCH: Cargar datos reales al entrar en la Home
+  useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        // Usamos la misma URL que en la página de Propiedades
+        const response = await fetch('https://web-production-2573f.up.railway.app/front/api/properties/?agency_id=Qqg3dS8LsYYc0QQGEfVZ');
+        
+        if (response.ok) {
+            const data = await response.json();
+            
+            // Limpieza de datos (asegurar que el precio es número)
+            const cleanData = data.map((item: any) => ({
+                ...item,
+                price: Number(item.price), 
+            }));
+
+            // LÓGICA DE DESTACADOS:
+            // 1. Buscamos propiedades marcadas como 'isFeatured'
+            // 2. Si no hay ninguna, cogemos las 3 primeras del listado
+            const featured = cleanData.filter((p: Property) => p.isFeatured);
+            
+            if (featured.length > 0) {
+                setFeaturedProperties(featured.slice(0, 3));
+            } else {
+                setFeaturedProperties(cleanData.slice(0, 3));
+            }
+        }
+      } catch (error) {
+        console.error("Error cargando destacados:", error);
+      }
+    };
+
+    fetchFeatured();
+  }, []);
+
+  // Datos estáticos (Estos SÍ los mantenemos aquí porque son de diseño/navegación)
   const areas = [
     { name: 'Benahavis', count: 142, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkZ1mfgk638OfD_pkJq_OLVCqtRHUgngtmB_rdVVWrrwYG5NWp_h5eSZdpp1vWxeyeCBwmqhNxIv1eUbyEJibxSZ_DSewYVIp6nDNAY1CGrmWlCHM4zxR0tr6_bnOwjJr7Hxuz5oyzo9i8MC4eGiax1MyafhsKzLrhz2wLB6uTDO16CW9YJSvKuuixBmySp49asxvfrJ1NjXnBi8AaFnoeQ6KHDTo9TN875N6oxUm45GApS_obEUGHkLNh8GOrHSNyaTEBiN00JVo' },
     { name: 'Marbella', count: 509, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSJykfluyFE4t4LznpuTZMuLk5xqU7-loqbHC18718HkDuxHiREHcioXYpQRLpMw-DbWXEEEpCOpYDhkkzgN8im2RiF1jraWf20eOcoOsRGnw3zR-pSm5IM_0rqX0vrmw3WQzi0QOcHhZdMm2n6Beu39DbkH-eArSu-UjmC0dGyPuLhM3v_Frb03k6YGQRmOwRSRpPLQAdG4Os5xucBr7ObLZliNzSrBvC7vUEJLlmquvxj5axx3Vk71-ZlwD87ryHzxwtThW2Js8' },
@@ -43,7 +82,7 @@ const Home: React.FC = () => {
         </div>
       </header>
 
-      {/* Featured Properties */}
+      {/* Featured Properties (AHORA DINÁMICO) */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-serif text-4xl mb-4 uppercase tracking-wider text-secondary">The Best Homes in the Best Locations</h2>
@@ -58,9 +97,16 @@ const Home: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredProperties.map((prop) => (
-              <PropertyCard key={prop.id} property={prop} />
-            ))}
+            {/* Si aún cargando o no hay datos, podrías mostrar un skeleton, pero por ahora mostramos lo que haya */}
+            {featuredProperties.length > 0 ? (
+                featuredProperties.map((prop) => (
+                  <PropertyCard key={prop.id} property={prop} />
+                ))
+            ) : (
+                <div className="col-span-3 py-10 text-gray-400 italic">
+                    Cargando propiedades destacadas...
+                </div>
+            )}
           </div>
           
           <div className="mt-16">
