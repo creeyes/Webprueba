@@ -126,7 +126,7 @@ const Properties: React.FC = () => {
         {/* Header */}
         <div className="py-12 border-b border-gray-200 mb-8">
           <h1 className="font-serif text-4xl md:text-5xl font-bold leading-tight mb-4 text-secondary">
-             Hola mundo <span className="text-primary italic">coastal living</span>
+             Hola cris <span className="text-primary italic">coastal living</span>
           </h1>
           <p className="text-gray-500 text-lg max-w-xl">
              Browse our curated collection of luxury villas, beachfront apartments, and exclusive estates in the most prestigious locations.
