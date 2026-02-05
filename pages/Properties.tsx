@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 // ELIMINADO: import { properties } from '../data/mockData'; 
 import PropertyCard from '../components/PropertyCard';
-import { Property } from '../types'; // Asegúrate de importar la interfaz
+import { Property } from '../types'; // Asegúrate de tener definida la interfaz en types.ts
 import { ChevronDown, Map, X, Check, Loader } from 'lucide-react';
 
 const Properties: React.FC = () => {
@@ -9,7 +9,7 @@ const Properties: React.FC = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // State for filters
+  // Estados de los Filtros
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
@@ -30,7 +30,7 @@ const Properties: React.FC = () => {
         if (response.ok) {
             const data = await response.json();
             
-            // Convertimos precio de String a Number
+            // Convertimos precio de String a Number para poder filtrar matemáticamente
             const cleanData = data.map((item: any) => ({
                 ...item,
                 price: Number(item.price), 
@@ -50,7 +50,7 @@ const Properties: React.FC = () => {
     fetchProperties();
   }, []);
 
-  // Close dropdowns when clicking outside
+  // Cerrar dropdowns al hacer clic fuera
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
@@ -92,7 +92,7 @@ const Properties: React.FC = () => {
     { label: 'Above €10M', min: 10000001, max: Infinity },
   ];
 
-  // Filter Logic
+  // Lógica de Filtrado
   const filteredProperties = properties.filter(p => {
     // Type Filter
     if (selectedType && p.type !== selectedType) return false;
