@@ -1,7 +1,50 @@
-import React from 'react';
+iimport React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { blogPosts } from '../data/mockData';
-import { Calendar, Tag, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { ArrowLeft, Facebook, Twitter, Linkedin, Share2 } from 'lucide-react';
+
+// DATOS ESTÁTICOS (Copiados aquí para no depender de mockData)
+const blogPosts = [
+  {
+    id: '1',
+    title: 'The Ultimate Guide to Marbella Luxury Real Estate',
+    date: 'October 15, 2023',
+    category: 'Real Estate',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
+    excerpt: 'Discover the most exclusive neighborhoods and what makes Marbella the jewel of the Costa del Sol.',
+    content: [
+      "Marbella has long been synonymous with luxury, attracting discerning buyers from around the globe. From the Golden Mile to La Zagaleta, the region offers a diverse range of exclusive properties.",
+      "In this guide, we explore the key areas that define the Marbella real estate market. Whether you are looking for a beachfront villa or a secluded hillside estate, understanding the nuances of each neighborhood is essential.",
+      "The Golden Mile remains the most prestigious address, home to iconic hotels like the Marbella Club and Puente Romano. Here, properties are not just homes; they are pieces of history.",
+      "For those seeking absolute privacy, La Zagaleta offers a gated community experience unparalleled in Europe. With its own golf courses, equestrian center, and helipad, it is a sanctuary for the elite."
+    ]
+  },
+  {
+    id: '2',
+    title: 'Interior Design Trends for 2024',
+    date: 'November 2, 2023',
+    category: 'Design',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800',
+    excerpt: 'From sustainable materials to bold colors, explore the trends shaping luxury interiors this coming year.',
+    content: [
+      "As we approach 2024, interior design is shifting towards a blend of sustainability and bold expression. Natural materials like stone, wood, and clay are taking center stage, grounding luxury spaces in earthiness.",
+      "Color palettes are warming up, moving away from the stark grays of the past decade. Terracotta, olive green, and deep blues are becoming the new neutrals, adding depth and character to living spaces.",
+      "In luxury villas, the line between indoor and outdoor living continues to blur. Floor-to-ceiling windows and continuous flooring materials create seamless transitions, expanding the living area into the landscape."
+    ]
+  },
+  {
+    id: '3',
+    title: 'Living the Mediterranean Lifestyle',
+    date: 'November 20, 2023',
+    category: 'Lifestyle',
+    image: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&q=80&w=800',
+    excerpt: 'Experience the perfect balance of relaxation and sophistication that only the Mediterranean coast can offer.',
+    content: [
+      "The Mediterranean lifestyle is more than just a diet or a location; it is a philosophy of living. It emphasizes the importance of time, connection, and enjoying the simple pleasures of life.",
+      "In Marbella, this lifestyle is elevated by the perfect climate. With over 300 days of sunshine a year, outdoor activities are a daily reality. From morning swims in the sea to late dinners under the stars, life here is lived in the open air.",
+      "Community is at the heart of this lifestyle. Whether it's gathering with friends at a chiringuito or enjoying a family lunch on the terrace, social connections are nurtured and cherished."
+    ]
+  }
+];
 
 const BlogPostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
